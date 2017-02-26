@@ -1,6 +1,38 @@
+# Common Files
+*.egg-info
+*.log
+*.pyc
+*.db
+*.csv
+*.swp
+*.swo
+*.zip
+*.cfg
+*.tox
+*~
+.project
+.pydevproject
+
+# Translation files
+*.mo
+
+# Sqlite database
+*.db
+*.sqlite
+
+# Python 3 Compiled modules
 __pycache__/
+
+# Virtualenv
+env/
+venv/
 .env/
 .venv/
+
+# NodeJS Modules
 node_modules/
-.pyc
-.db
+
+# Folders
+seed/
+migrations/
+**/deploy/

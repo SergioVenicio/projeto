@@ -3,6 +3,7 @@
 
 from .. import db
 
+
 class State(db.Model):
     __tablename__ = 'states'
 
@@ -13,6 +14,7 @@ class State(db.Model):
 
     @staticmethod
     def insert_states():
+        ''' All states of Federative Republic of Brazil '''
         states = [
             State(description='ACRE', acronym='AC'),
             State(description='ALAGOAS', acronym='AL'),

@@ -5,7 +5,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
-# Istancia das extensoes
+# Instance of extensions
 db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -18,15 +18,10 @@ def create_app(config=None):
     app.config.from_object(config)
 
     # Blueprints
-    #from controllers import view
-    #app.register_blueprint(view)
+    # from controllers import view
+    # app.register_blueprint(view)
 
-    # Configuração das extensões
+    # Extensions setup
     db.init_app(app)
     login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
-
     return app

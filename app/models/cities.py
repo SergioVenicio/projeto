@@ -14,6 +14,7 @@ class City(db.Model):
 
     @staticmethod
     def insert_cities():
+        ''' All cities of federative republic of brazil '''
         states = {s.description: int(s.id) for s in State.query.all()}
         cities = [
             City(description='ABADIA DE GOIAS',state_id=states['GOIAS']),

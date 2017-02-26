@@ -9,6 +9,6 @@ class Product(db.Model):
     description = db.Column(db.String(100), nullable=False)
     unit = db.Column(db.String(2))
     provider_id = db.Column(db.Integer, db.ForeignKey('providers.id'))
-    
+
     def __repr__(self):
         return '<Product %r>' % self.description
