@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import csv
@@ -9,7 +8,6 @@ from .states import State
 
 class City(db.Model):
     __tablename__ = 'cities'
-
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(50))
     state_id = db.Column(db.Integer, db.ForeignKey('states.id'))

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import csv
@@ -8,7 +7,6 @@ from .. import db
 
 class State(db.Model):
     __tablename__ = 'states'
-
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(20), nullable=False)
     acronym = db.Column(db.String(2), nullable=False)
