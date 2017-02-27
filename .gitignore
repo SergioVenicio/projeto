@@ -33,6 +33,5 @@ venv/
 node_modules/
 
 # Folders
-seed/
 migrations/
 **/deploy/
