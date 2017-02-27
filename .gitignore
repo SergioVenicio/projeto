@@ -3,7 +3,6 @@
 *.log
 *.pyc
 *.db
-*.csv
 *.swp
 *.swo
 *.zip
