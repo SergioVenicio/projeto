@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import csv
+import os
 from .. import db
 
 
@@ -15,35 +17,12 @@ class State(db.Model):
     @staticmethod
     def insert_states():
         ''' All states of Federative Republic of Brazil '''
-        states = [
-            State(description='ACRE', acronym='AC'),
-            State(description='ALAGOAS', acronym='AL'),
-            State(description='AMAPA', acronym='AP'),
-            State(description='AMAZONAS', acronym='AM'),
-            State(description='BAHIA', acronym='BA'),
-            State(description='CEARA', acronym='CE'),
-            State(description='DISTRITO FEDERAL', acronym='DF'),
-            State(description='ESPIRITO SANTO', acronym='ES'),
-            State(description='GOIAS', acronym='GO'),
-            State(description='MARANHAO', acronym='MA'),
-            State(description='MATO GROSSO DO SUL', acronym='MS'),
-            State(description='MATO GROSSO', acronym='MT'),
-            State(description='MINAS GERAIS', acronym='MG'),
-            State(description='PARAIBA', acronym='PB'),
-            State(description='PARANA', acronym='PR'),
-            State(description='PARA', acronym='PA'),
-            State(description='PERNAMBUCO', acronym='PE'),
-            State(description='PIAUI', acronym='PI'),
-            State(description='RIO DE JANEIRO', acronym='RJ'),
-            State(description='RIO GRANDE DO NORTE', acronym='RN'),
-            State(description='RIO GRANDE DO SUL', acronym='RS'),
-            State(description='RONDONIA', acronym='RO'),
-            State(description='RORAIMA', acronym='RR'),
-            State(description='SANTA CATARINA', acronym='SC'),
-            State(description='SAO PAULO', acronym='SP'),
-            State(description='SERGIPE', acronym='SE'),
-            State(description='TOCANTINS', acronym='TO')
-        ]
+        basedir = os.path.abspath(os.path.dirname('__file__'))
+        path = os.path.join(basedir, 'seeds', 'states.csv')
+        with open(path) as f:
+            reader = csv.DictReader(f)
+            states = [State(description=row['ESTADO'], acronym=row['ACRONIMO'])
+                      for row in reader]
         db.session.bulk_save_objects(states)
         db.session.commit()
 
