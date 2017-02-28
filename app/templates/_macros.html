@@ -1,0 +1,74 @@
+{% macro render_field(field) -%}
+<div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+  {% if (field.type != 'HiddenField' and field.type != 'CSRFTokenField')%}
+  {{ field.label(class='text-bold') }}
+  {% endif %}
+
+  {{ field(class_='form-control ' + kwargs.pop('class', ''), **kwargs) }}
+
+  {% if field.errors %}
+    {% for e in field.errors %}
+    <span id="{{ field.name }}-error" class="help-block">{{ e }}</span>
+    {% endfor %}
+  {% endif %}
+</div>
+{%- endmacro %}
+
+
+{% macro render_checkbox_field(field) -%}
+<div class="checkbox {{ kwargs.pop('class_', '') }}">
+  <label>
+    {{ field(type='checkbox', **kwargs) }} {{ field.label.text }}
+  </label>
+</div>
+{%- endmacro %}
+
+
+{% macro render_radio_field(field) -%}
+{% for value, label, _ in field.iter_choices() %}
+<div class="radio {{ kwargs.pop('class_', '') }}">
+  <label>
+    <input type="radio" name="{{ field.id }}" id="{{ field.id }}" value="{{ value }}">{{ label }}
+  </label>
+</div>
+{% endfor %}
+{%- endmacro %}
+
+
+{% macro render_pagination(pagination, endpoint) %}
+<ul class="pagination">
+  {% if pagination.has_prev %}
+  <li>
+    <a href="{{ url_for(endpoint, page=pagination.prev_num, **kwargs) }}" aria-label="Previous">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+  </li>
+  {% endif %}
+
+  {% for p in pagination.iter_pages(left_edge=1, left_current=2, right_current=3, right_edge=1) %}
+    {% if p %}
+      {% if p != pagination.page %}
+      <li>
+        <a href="{{ url_for(endpoint, page=p, **kwargs) }}">{{ p }}</a>
+      </li>
+      {% else %}
+      <li class="active">
+        <a href="{{ url_for(endpoint, page=p, **kwargs) }}">{{ p }}</a>
+      </li>
+      {% endif %}
+    {% else %}
+    <li class="disabled">
+      <span class="ellipsis">&hellip;</span>
+    </li>
+    {% endif %}
+  {% endfor %}
+
+  {% if pagination.has_next %}
+  <li>
+    <a href="{{ url_for(endpoint, page=pagination.next_num, **kwargs) }}" aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  {% endif %}
+</ul>
+{% endmacro %}
