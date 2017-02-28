@@ -1,7 +1,21 @@
 // Paper 3.3.7
 // Bootswatch
 // -----------------------------------------------------
+.font-face(@font-family, @name, @fname, @font-weight, @font-style: normal, @unicode: 'U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215', @path: '../fonts/') {
+  @font-face {
+    font-family: '@{font-family}';
+    src: local('@{name}'), local('@{fname}'), url('@{path}@{name}.woff2') format('woff2');
+    font-weight: @font-weight;
+    font-style: @font-style;
+    unicode-range: @unicode;
+  }
+}
 
+.font-face('Poppins', 'Poppins-Light', 'Poppins Light', 300);
+.font-face('Poppins', 'Poppins-Regular', 'Poppins Regular', 400);
+.font-face('Poppins', 'Poppins-Medium', 'Poppins Medium', 500);
+.font-face('Poppins', 'Poppins-SemiBold', 'Poppins SemiBold', 600);
+.font-face('Poppins', 'Poppins-Bold', 'Poppins Bold', 700);
 // Effects =================================================================
 
 .ripple(@color) {
