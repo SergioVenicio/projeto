@@ -14,7 +14,7 @@ class City(db.Model):
     providers = db.relationship('Provider', backref='city', lazy='dynamic')
 
     @staticmethod
-    def insert_cities():
+    def populate():
         ''' All cities of federative republic of brazil '''
         states = {s.description: int(s.id) for s in State.query.all()}
         basedir = os.path.abspath(os.path.dirname('__file__'))

@@ -47,9 +47,9 @@ def configure_comands(app):
             with app.app_context():
                 db.drop_all()
                 db.create_all()
-                UserType.insert_roles()
-                State.insert_states()
-                City.insert_cities()
+                UserType.populate()
+                State.populate()
+                City.populate()
 
 
 class MakeShellContext():

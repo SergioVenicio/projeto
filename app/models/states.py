@@ -13,7 +13,7 @@ class State(db.Model):
     cities = db.relationship('City', backref='state', lazy='dynamic')
 
     @staticmethod
-    def insert_states():
+    def populate():
         ''' All states of Federative Republic of Brazil '''
         basedir = os.path.abspath(os.path.dirname('__file__'))
         path = os.path.join(basedir, 'seeds', 'states.csv')

@@ -11,7 +11,7 @@ class UserType(db.Model):
     users = db.relationship('User', backref='user_type', lazy='dynamic')
 
     @staticmethod
-    def insert_roles():
+    def populate():
         roles = [
             (u'Administrador', 'admin'),
             (u'Usuário', 'user')
