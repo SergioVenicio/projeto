@@ -12,7 +12,10 @@ from ..forms.providers import ProviderForm
 @login_required
 def providers():
     page = request.args.get('page', 1, type=int)
+    search = request.args.get('search')
     filters = ()
+    if search:
+        filters += (Provider.social_reason.like('%'+search+'%'),)
     pagination = Provider.query.filter(*filters).order_by(
         Provider.social_reason.asc()).paginate(
             page, per_page=current_app.config['PER_PAGE'], error_out=False)

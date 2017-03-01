@@ -14,7 +14,7 @@ jQuery.validator.setDefaults({
   errorPlacement: function(error, element) {
     if(element.parent('.input-group').length) {
       error.insertAfter(element.parent());
-    } else if (element.next('.selectize-control')) {
+    } else if (element.next('.selectize-control').length) {
       error.insertAfter(element.next('.selectize-control'));
     } else {
       error.insertAfter(element);
@@ -40,7 +40,8 @@ validators = {
         },
         state_registration: {
           minlength: 10,
-          maxlength: 25
+          maxlength: 25,
+          required: true
         },
         address: {
           minlength: 3,
@@ -63,10 +64,10 @@ validators = {
         }
       },
       messages: {
-        name: {
-          minlength: 'O nome deve possuir no mínimo {0} caracteres.',
-          maxlength: 'O nome deve possuir no máximo {0} caracteres.',
-          required: 'Digite o nome.'
+        social_reason: {
+          minlength: 'A razão social deve possuir no mínimo {0} caracteres.',
+          maxlength: 'A razão social deve possuir no máximo {0} caracteres.',
+          required: 'Digite a razão social.'
         },
         cnpj: {
           minlength: 'O CNPJ deve possuir no mínimo {0} caracteres.',
