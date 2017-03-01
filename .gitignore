@@ -30,6 +30,7 @@ venv/
 
 # NodeJS Modules
 node_modules/
+bower_components/
 
 # Folders
 migrations/
