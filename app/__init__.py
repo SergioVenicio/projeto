@@ -23,7 +23,7 @@ def configure_blueprints(app):
 
 def configure_extensions(app):
     login_manager.session_protection = 'strong'
-    login_manager.login_view = 'auth.login'
+    login_manager.login_view = 'controller.login'
     login_manager.login_message = u'Autentique-se para acessar esta página'
     db.init_app(app)
     login_manager.init_app(app)

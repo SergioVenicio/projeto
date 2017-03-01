@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}{{ label }}{% endblock %}
+{% block body %}
+{% include "navbar.html" %}
+{% from '_macros.html' import render_field, render_checkbox_field %}
+
+<div class="container-fluid">
+  <form id="provider" class="form" action="" method="POST" enctype="multipart/form-data">
+    <div class="panel panel-{{ color }}">
+      <div class="panel-heading lead">
+        <i class="fa fa-building"></i> {{ label }}
+      </div>
+
+      <div class="panel-body">
+        <div class="container-fluid">
+          {{ form.csrf_token }}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                {{ render_field(form.social_reason, class_='col-md-6', placeholder='Razão Social', autofocus=True, required=True) }}
+                {{ render_field(form.state_registration, class_='col-md-3') }}
+                {{ render_field(form.cnpj, class_='col-md-3', class='cnpj-mask', placeholder='CNPJ', required=True) }}
+              </div>
+
+              <div class="row">
+                {{ render_field(form.address, class_='col-md-6', placeholder='Endereço', required=True) }}
+                {{ render_field(form.district, class_='col-md-3', placeholder='Bairro', required=True) }}
+                {{ render_field(form.city_id, class_='col-md-3', placeholder='Cidade') }}
+              </div>
+
+              <div class="row">
+                {{ render_field(form.telephone, class_='col-md-3', class='phone-mask', placeholder='Telefone') }}
+                {{ render_field(form.email, class_='col-md-9', placeholder='Email') }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <button id="{{ form.submit.id }}" class="btn btn-{{ color }}" type="submit" name="{{ form.submit.name }}">
+          <i class="fa fa-save"></i> {{ form.submit.label.text }}
+        </button>
+        <a href="{{ url_for('controller.providers') }}" class="btn btn-default" name="back" type="button"><i class="fa fa-ban"></i> Cancelar</a>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

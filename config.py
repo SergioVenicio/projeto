@@ -19,13 +19,14 @@ def generate_key(length):
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or generate_key(64)
+    PER_PAGE = 2
     # SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 
 
 class Development(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'storage-dev.db')
-    # SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = True
 

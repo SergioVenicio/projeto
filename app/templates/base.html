@@ -10,6 +10,7 @@
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico')  }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/selectize.bootstrap3.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block head %}{% endblock %}
   </head>
@@ -27,7 +28,19 @@
     {% endif %}
     {% endwith %}
     {% block body %}{% endblock %}
-    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <!-- Libraries -->
+    <script src="{{ url_for('static', filename='js/libs/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/jquery.maskedinput.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/jquery.validate.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs/selectize.all.min.js') }}"></script>
+
+    <!-- Application -->
+    <script src="{{ url_for('static', filename='js/app/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app/services.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app/helpers.validate.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app/validators.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app/main.js') }}"></script>
   </body>
 </html>
