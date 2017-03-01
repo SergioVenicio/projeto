@@ -14,6 +14,8 @@ jQuery.validator.setDefaults({
   errorPlacement: function(error, element) {
     if(element.parent('.input-group').length) {
       error.insertAfter(element.parent());
+    } else if (element.next('.selectize-control')) {
+      error.insertAfter(element.next('.selectize-control'));
     } else {
       error.insertAfter(element);
     }
