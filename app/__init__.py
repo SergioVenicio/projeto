@@ -6,6 +6,7 @@ from flask_migrate import MigrateCommand
 from .extensions import db, login_manager, manager, migrate
 from .models import (User, UserType, State, City, Provider, Product)
 from .controllers import controller
+from .utils.helpers import MakeShellContext, HandleError
 
 
 def create_app(config=None):
@@ -13,6 +14,7 @@ def create_app(config=None):
     app.config.from_object(config)
     configure_extensions(app)
     configure_blueprints(app)
+    configure_errors(app)
     configure_comands(app)
     return app
 
@@ -35,7 +37,7 @@ def configure_extensions(app):
 def configure_comands(app):
     manager.add_command('runserver', Server(threaded=True))
     manager.add_command('shell', Shell(make_context=MakeShellContext(
-        app, User, UserType, Provider, Product, State, City)))
+        app, db, User, UserType, Provider, Product, State, City)))
     manager.add_command('db', MigrateCommand)
 
     @manager.command
@@ -52,17 +54,10 @@ def configure_comands(app):
                 City.populate()
 
 
-class MakeShellContext():
-    '''
-    Creates a callable wrap to flask-script shell
-
-    :param app: application object
-    :param models: list of model objects
-    '''
-
-    def __init__(self, app, *models):
-        self._app = app
-        self._models = dict((m.__name__, m) for m in models)
-
-    def __call__(self):
-        return dict(app=self._app, db=db, **self._models)
+def configure_errors(app):
+    errors = {
+        404: 'Página não encontrada!',
+        500: 'Erro interno do servidor!'
+    }
+    for code, message in errors.items():
+        app.errorhandler(code)(HandleError('error.html', message))

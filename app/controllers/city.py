@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, abort, current_app, jsonify, request
+from flask import abort, current_app, jsonify, request
 from flask_login import login_required
-from ..models import City
 from . import controller
+from ..models import City
 
 
 @controller.route('/cidades/')
@@ -21,7 +21,6 @@ def cities():
         City.description.asc()).paginate(
             page, per_page=current_app.config['PER_PAGE'], error_out=False)
     cities = pagination.items
-
     return jsonify({
         'cities': [{
             'id': c.id,

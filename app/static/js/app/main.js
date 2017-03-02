@@ -5,7 +5,6 @@ $(document).ready(function() {
       app.utils.index('/fornecedores/', 'Excluir Fornecedor', 'Deseja realmente excluir este fornecedor?');
     }).
     route('/fornecedores/adicionar/', function() {
-      console.log(':)');
       services.city($('#city_id'));
       validators.mask();
       validators.provider($('#provider'));
@@ -14,6 +13,20 @@ $(document).ready(function() {
       services.city($('#city_id'));
       validators.mask();
       validators.provider($('#provider'));
+    }).
+    route('/produtos/', function() {
+      app.utils.index('/produtos/', 'Excluir Produto', 'Deseja realmente excluir este produto?');
+    }).
+    route('/produtos/adicionar/', function() {
+      console.log(':)');
+      services.provider($('#provider_id'));
+      validators.mask();
+      validators.product($('#product'));
+    }).
+    route('/produtos/editar/:id', function() {
+      services.provider($('#provider_id'));
+      validators.mask();
+      validators.product($('#product'));
     }).
     route('/usuarios/', function() {
       app.utils.index('/usuarios/', 'Excluir Usuário', 'Deseja realmente excluir este usuário?');

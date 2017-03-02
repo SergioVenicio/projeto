@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from flask import current_app, request, render_template, redirect, url_for
+from flask import (current_app, jsonify, request,
+                   render_template, redirect, url_for)
 from flask_login import login_required
 from . import controller
 from .. import db
 from ..models import Provider, City
 from ..forms.providers import ProviderForm
+from ..decorators.permission import permission_required
 
 
 @controller.route('/fornecedores/')
 @login_required
+@permission_required('admin')
 def providers():
     page = request.args.get('page', 1, type=int)
+    xhr = request.args.get('xhr', False, type=bool)
     search = request.args.get('search')
     filters = ()
     if search:
@@ -20,12 +24,19 @@ def providers():
         Provider.social_reason.asc()).paginate(
             page, per_page=current_app.config['PER_PAGE'], error_out=False)
     providers = pagination.items
+    if xhr and request.is_xhr:
+        return jsonify({
+            'providers': [{
+                'id': p.id, 'social_reason': p.social_reason
+            } for p in providers]
+        })
     return render_template('provider/index.html', providers=providers,
                            pagination=pagination)
 
 
 @controller.route('/fornecedores/adicionar/', methods=['GET', 'POST'])
 @login_required
+@permission_required('admin')
 def add_provider():
     form = ProviderForm()
     city = request.form.get('city_id', 0, type=int)
@@ -48,6 +59,7 @@ def add_provider():
 
 @controller.route('/fornecedores/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
+@permission_required('admin')
 def edit_provider(id):
     provider = Provider.query.get_or_404(id)
     city = provider.city
@@ -73,5 +85,9 @@ def edit_provider(id):
 
 @controller.route('/fornecedores/excluir/<int:id>', methods=['DELETE'])
 @login_required
+@permission_required('admin')
 def delete_provider(id):
+    provider = Provider.query.get_or_404(id)
+    db.session.delete(provider)
+    db.session.commit()
     return '', 204

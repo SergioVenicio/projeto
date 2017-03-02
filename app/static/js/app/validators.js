@@ -102,6 +102,43 @@ validators = {
     });
   },
 
+  product: function(form) {
+    app.utils.enter_prevent();
+    $(form).validate({
+      rules: {
+        provider_id: {
+          required: true
+        },
+
+        description: {
+          maxlength: 100,
+          required: true
+        },
+
+        unit: {
+          maxlength: 2,
+          required: true
+        }
+      },
+
+      messages: {
+        provider_id: {
+          required: 'Digite o fornecedor.'
+        },
+
+        description: {
+          maxlength: 'O login deve possuir no máximo {0} caracteres.',
+          required: 'Digite a descrição do produto.'
+        },
+
+        unit: {
+          maxlength: 'A unidade de media deve possuir no máximo {0} caracteres.',
+          required: 'Digite a unidade de medida.'
+        }
+      }
+    });
+  },
+
   user: function(form) {
     app.utils.enter_prevent();
     $(form).validate({

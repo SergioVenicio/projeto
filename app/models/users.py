@@ -24,6 +24,9 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def has_permission(self, *roles):
+        return self.user_type.role in roles
+
     def __repr__(self):
         return '<User %r>' % self.name
 

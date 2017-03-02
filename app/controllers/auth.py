@@ -3,9 +3,9 @@
 from flask import flash, redirect, request, render_template, url_for
 from flask_login import (
     current_user, login_required, login_user, logout_user)
+from . import controller
 from ..forms.login import LoginForm
 from ..models.users import User
-from . import controller
 
 
 @controller.route('/login', methods=['GET', 'POST'])
