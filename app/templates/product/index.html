@@ -68,7 +68,11 @@
         </div>
 
         <div class="panel-footer text-center">
-          {{ render_pagination(pagination, 'controller.products') }}
+          {% if search %}
+            {{ render_pagination(pagination, 'controller.products', search=search) }}
+          {% else %}
+            {{ render_pagination(pagination, 'controller.products') }}
+          {% endif %}
         </div>
       </div>
     </div>
