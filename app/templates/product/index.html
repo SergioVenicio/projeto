@@ -40,8 +40,10 @@
 
               <thead>
                 <tr>
-                  <th>Descrição</th>
-                  <th class="col-md-6">Unidade de Medida</th>
+                  <th class="col-md-3">Descrição</th>
+                  <th class="col-md-2">Unidade de Medida</th>
+                  <th class="col-md-2">Valor</th>
+                  <th class="col-md-2">Quantidade</th>
                   <th>Ações</th>
                 </tr>
               </thead>
@@ -51,6 +53,8 @@
                 <tr>
                   <td>{{ p.description }}</td>
                   <td>{{ p.unit }}</td>
+                  <td>{{ p.value  }}</td>
+                  <td>{{ p.qntd  }}</td>
                   <td>
                     <a class="btn btn-warning" href="{{ url_for('controller.edit_product', id=p.id) }}">
                       <i class="fa fa-pencil"></i> Alterar

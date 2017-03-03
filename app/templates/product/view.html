@@ -17,10 +17,14 @@
           <div class="row">
             <div class="col-md-12">
               <div class="row">
-                {{ render_field(form.provider_id, class_='col-md-4', placeholder='Fornecedor', required=True, autofocus=True) }}
-                {{ render_field(form.description, class_='col-md-6', placeholder='Descrição', required=True) }}
-                {{ render_field(form.unit, class_='col-md-2', placeholder='UN', required=True) }}
+                {{ render_field(form.provider_id, class_='col-md-5', placeholder='Fornecedor', required=True, autofocus=True) }}
+                {{ render_field(form.description, class_='col-md-7', placeholder='Descrição', required=True) }}
               </div>
+              <div class="row">
+                {{ render_field(form.value, class_='col-md-4', placeholder='Valor', required=True) }}
+                {{ render_field(form.qntd, class_='col-md-4', placeholder='Quantidade', required=True) }}
+                {{ render_field(form.unit, class_='col-md-4', placeholder='UN', required=True) }}
+                </div>
             </div>
           </div>
         </div>
