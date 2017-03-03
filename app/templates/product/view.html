@@ -24,7 +24,11 @@
                 {{ render_field(form.value, class_='col-md-4', placeholder='Valor', required=True) }}
                 {{ render_field(form.qntd, class_='col-md-4', placeholder='Quantidade', required=True) }}
                 {{ render_field(form.unit, class_='col-md-4', placeholder='UN', required=True) }}
-                </div>
+              </div>
+              <div class="row">
+                {{ render_field(form.fabrication, class_='col-md-6', placeholder='Fabricação', required=True) }}
+                {{ render_field(form.validaty, class_='col-md-6', placeholder='Validade', required=True) }}
+              </div>
             </div>
           </div>
         </div>

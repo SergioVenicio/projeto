@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask_wtf import FlaskForm
-from wtforms import (IntegerField, SelectField, StringField,
+from wtforms import (DateField, IntegerField, SelectField, StringField,
                      SubmitField,FloatField, validators)
 
 
@@ -21,4 +21,6 @@ class ProductForm(FlaskForm):
     unit = StringField('Unidade de Medida', [
         validators.Required(),
         validators.Length(max=2)])
+    fabrication = DateField(u'Fabricação', format='%d/%m/%Y')
+    validaty = DateField(u'Validade', format='%d/%m/%Y')
     submit = SubmitField(u'Salvar alterações')

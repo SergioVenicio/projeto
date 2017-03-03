@@ -10,6 +10,8 @@ class Product(db.Model):
     value = db.Column(db.Float, nullable=False)
     qntd = db.Column(db.Integer, nullable=False)
     unit = db.Column(db.String(2))
+    fabrication = db.Column(db.DateTime)
+    validaty = db.Column(db.DateTime)
     provider_id = db.Column(db.Integer, db.ForeignKey('providers.id'))
 
     def __repr__(self):

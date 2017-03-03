@@ -40,10 +40,12 @@
 
               <thead>
                 <tr>
-                  <th class="col-md-3">Descrição</th>
+                  <th>Descrição</th>
+                  <th class="col-md-2">Fabricação</th>
+                  <th class="col-md-2">Validade</th>
                   <th class="col-md-2">Unidade de Medida</th>
-                  <th class="col-md-2">Valor</th>
-                  <th class="col-md-2">Quantidade</th>
+                  <th class="col-md-1">Valor</th>
+                  <th class="col-md-1">Quantidade</th>
                   <th>Ações</th>
                 </tr>
               </thead>
@@ -52,6 +54,8 @@
                 {% for p in products %}
                 <tr>
                   <td>{{ p.description }}</td>
+                  <td>{{ p.fabrication.strftime('%d/%m/%Y') }}</td>
+                  <td>{{ p.validaty.strftime('%d/%m/%Y') }}</td>
                   <td>{{ p.unit }}</td>
                   <td>{{ p.value  }}</td>
                   <td>{{ p.qntd  }}</td>
