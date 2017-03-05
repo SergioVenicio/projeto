@@ -54,11 +54,11 @@
                 {% for p in products %}
                 <tr>
                   <td>{{ p.description }}</td>
-                  <td>{{ p.fabrication.strftime('%d/%m/%Y') }}</td>
-                  <td>{{ p.validaty.strftime('%d/%m/%Y') }}</td>
+                  <td>{{ p.manufactured.strftime('%d/%m/%Y') }}</td>
+                  <td>{{ p.validity.strftime('%d/%m/%Y') }}</td>
                   <td>{{ p.unit }}</td>
-                  <td>{{ p.value  }}</td>
-                  <td>{{ p.qntd  }}</td>
+                  <td>{{ format_price(p.value) }}</td>
+                  <td>{{ p.quantity }}</td>
                   <td>
                     <a class="btn btn-warning" href="{{ url_for('controller.edit_product', id=p.id) }}">
                       <i class="fa fa-pencil"></i> Alterar

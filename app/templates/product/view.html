@@ -21,13 +21,13 @@
                 {{ render_field(form.description, class_='col-md-7', placeholder='Descrição', required=True) }}
               </div>
               <div class="row">
-                {{ render_field(form.value, class_='col-md-4', placeholder='Valor', required=True) }}
-                {{ render_field(form.qntd, class_='col-md-4', placeholder='Quantidade', required=True) }}
+                {{ render_field(form.value, class_='col-md-4', class="money-mask", placeholder='Valor', required=True) }}
+                {{ render_field(form.quantity, class_='col-md-4', placeholder='Quantidade', required=True) }}
                 {{ render_field(form.unit, class_='col-md-4', placeholder='UN', required=True) }}
               </div>
               <div class="row">
-                {{ render_field(form.fabrication, class_='col-md-6', placeholder='Fabricação', required=True) }}
-                {{ render_field(form.validaty, class_='col-md-6', placeholder='Validade', required=True) }}
+                {{ render_field(form.manufactured, class_='col-md-6', class="date-mask", placeholder='Fabricação', required=True) }}
+                {{ render_field(form.validity, class_='col-md-6', class="date-mask", placeholder='Validade', required=True) }}
               </div>
             </div>
           </div>
@@ -35,8 +35,8 @@
       </div>
 
       <div class="panel-footer">
-        <button id="{{ form.submit.id }}" class="btn btn-{{ color }}" type="submit" name="{{ form.submit.name }}">
-          <i class="fa fa-save"></i> {{ form.submit.label.text }}
+        <button id="{{ form.submit_product.id }}" class="btn btn-{{ color }}" type="submit" name="{{ form.submit_product.name }}">
+          <i class="fa fa-save"></i> {{ form.submit_product.label.text }}
         </button>
         <a href="{{ url_for('controller.products') }}" class="btn btn-default" name="back" type="button"><i class="fa fa-ban"></i> Cancelar</a>
       </div>

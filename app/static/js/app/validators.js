@@ -19,7 +19,7 @@ jQuery.validator.setDefaults({
     } else {
       error.insertAfter(element);
     }
-  }
+  },
 });
 
 validators = {
@@ -98,13 +98,19 @@ validators = {
         email: {
           email: 'Informe um email válido.'
         }
-      }
+     }
     });
   },
 
   product: function(form) {
     app.utils.enter_prevent();
     $(form).validate({
+      submitHandler: function(form) {
+        var $money = $('.money-mask');
+        $money.val($money.maskMoney('unmasked')[0]);
+        form.submit();
+      },
+
       rules: {
         provider_id: {
           required: true
@@ -115,8 +121,24 @@ validators = {
           required: true
         },
 
+        value: {
+          required: true
+        },
+
+        quantity: {
+          required: true
+        },
+
         unit: {
           maxlength: 2,
+          required: true
+        },
+
+        manufactured: {
+          required: true
+        },
+
+        validity: {
           required: true
         }
       },
@@ -128,12 +150,28 @@ validators = {
 
         description: {
           maxlength: 'O login deve possuir no máximo {0} caracteres.',
-          required: 'Digite a descrição do produto.'
+          required: 'Digite a descrição.'
+        },
+
+        value: {
+          required: 'Digite o valor.'
+        },
+
+        quantity: {
+          required: 'Digite a quantidade.'
         },
 
         unit: {
           maxlength: 'A unidade de media deve possuir no máximo {0} caracteres.',
           required: 'Digite a unidade de medida.'
+        },
+
+        manufactured: {
+          required: 'Digite a data de fabricação.'
+        },
+
+        validity: {
+          required: 'Digite a data de validade.'
         }
       }
     });
@@ -230,8 +268,20 @@ validators = {
   },
 
   mask: function() {
+    $('.date-mask').mask('99/99/9999');
     $('.cpf-mask').mask('999.999.999-?99');
     $('.cnpj-mask').mask('99.999.999/9999-9?9');
+    $('.plate-mask').mask('aaa-9999');
+
+    var $money = $('.money-mask');
+    $money.val(Number.parseFloat($money.val()).toFixed(2).toString());
+    $money.maskMoney({
+      prefix: 'R$',
+      thousands: '.',
+      decimal: ',',
+      affixesStay: false,
+    });
+
     $('.phone-mask').mask("(99) 9999-9999?9").on('change', function (event) {
       var target, phone, element;
       target = (event.currentTarget) ? event.currentTarget : event.srcElement;
@@ -244,7 +294,6 @@ validators = {
         element.mask("(99) 9999-9999?9");
       }
     });
-    $('.plate-mask').mask('aaa-9999');
   }
 };
 

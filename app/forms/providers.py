@@ -28,4 +28,4 @@ class ProviderForm(FlaskForm):
     email = EmailField(u'Email')
     telephone = StringField(u'Telefone', [
         validators.Required(), validators.Length(min=14, max=15)])
-    submit = SubmitField(u'Salvar alterações')
+    submit_provider = SubmitField(u'Salvar alterações')

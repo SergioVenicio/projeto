@@ -3,6 +3,7 @@
 from flask import Flask
 from flask_script import Shell, Server
 from flask_migrate import MigrateCommand
+from getpass import getpass
 from .extensions import db, login_manager, manager, migrate
 from .models import (User, UserType, State, City, Provider, Product)
 from .controllers import controller
@@ -14,8 +15,9 @@ def create_app(config=None):
     app.config.from_object(config)
     configure_extensions(app)
     configure_blueprints(app)
-    configure_errors(app)
+    configure_template_filters(app)
     configure_comands(app)
+    configure_errors(app)
     return app
 
 
@@ -32,6 +34,14 @@ def configure_extensions(app):
     migrate.init_app(app)
     manager.app = app
     migrate.db = db
+
+
+def configure_template_filters(app):
+    @app.context_processor
+    def utility_processor():
+        def format_price(value, currency='R$'):
+            return '{0} {1:.2f}'.format(currency, value)
+        return dict(format_price=format_price)
 
 
 def configure_comands(app):
@@ -52,6 +62,22 @@ def configure_comands(app):
                 UserType.populate()
                 State.populate()
                 City.populate()
+
+    @manager.command
+    def adduser():
+        name = input('name: ')
+        email = input('email: ')
+        user_type_id = int(input('user type: admin / user (1 / 2): '))
+        password = getpass(prompt='password: ')
+        password2 = getpass(prompt='confirm password: ')
+        if password != password2:
+            import sys
+            sys.exit(u'Error: the password don\'t match!')
+        user = User(name=name, email=email,
+                    user_type_id=user_type_id, password=password)
+        db.session.add(user)
+        db.session.commit()
+        print('User {0} has been registered!'.format(name))
 
 
 def configure_errors(app):
