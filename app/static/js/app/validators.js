@@ -126,6 +126,7 @@ validators = {
         },
 
         quantity: {
+          number: true,
           required: true
         },
 
@@ -158,6 +159,7 @@ validators = {
         },
 
         quantity: {
+          number: 'Digite somente números',
           required: 'Digite a quantidade.'
         },
 

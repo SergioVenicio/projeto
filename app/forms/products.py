@@ -3,6 +3,7 @@
 from flask_wtf import FlaskForm
 from wtforms import (DateField, IntegerField, SelectField, StringField,
                      SubmitField, FloatField, validators)
+from wtforms.widgets.html5 import NumberInput
 
 
 class ProductForm(FlaskForm):
@@ -13,11 +14,9 @@ class ProductForm(FlaskForm):
         validators.Required(),
         validators.Length(max=100)])
     value = FloatField('Valor', validators=[
-        validators.Required()
-    ])
-    quantity = StringField(u'Quantidade', validators=[
-        validators.Required()
-    ])
+        validators.Required()])
+    quantity = IntegerField(u'Quantidade', validators=[
+        validators.Required()], widget=NumberInput(min=0))
     unit = StringField('Unidade de Medida', [
         validators.Required(),
         validators.Length(max=2)])
