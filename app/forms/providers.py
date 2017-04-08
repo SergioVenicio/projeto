@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import (IntegerField, SelectField, StringField,
                      SubmitField, validators)
 from wtforms.fields.html5 import EmailField
+from ..models.cities import City
 
 
 class ProviderForm(FlaskForm):
@@ -24,3 +25,12 @@ class ProviderForm(FlaskForm):
     telephone = StringField(u'Telefone', [
         validators.Required(), validators.Length(min=14, max=15)])
     submit_provider = SubmitField(u'Salvar alterações')
+
+    def fill_city(self, id):
+        city = City.query.get(id)
+        if city:
+            self.city_id.choices = [(city.id, city.description)]
+            self.city_id.data = city.id
+            self.city_id.errors = []
+        else:
+            return False

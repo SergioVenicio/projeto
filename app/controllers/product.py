@@ -4,7 +4,7 @@ from flask import current_app, request, render_template, redirect, url_for
 from flask_login import login_required
 from . import controller
 from .. import db
-from ..models import Product, Provider
+from ..models import Product
 from ..forms.products import ProductForm
 from ..decorators.permission import permission_required
 
@@ -32,12 +32,7 @@ def products():
 def add_product():
     form = ProductForm()
     provider = request.form.get('provider_id', 0, type=int)
-
-    if provider:
-        provider = Provider.query.get(provider)
-        form.provider_id.choices = [(provider.id, provider.social_reason)]
-        form.provider_id.data = provider.id
-        form.provider_id.errors = []
+    form.fill_provider(provider)
 
     if request.method == 'POST' and form.validate_on_submit():
         product = Product()
@@ -54,16 +49,10 @@ def add_product():
 @permission_required('admin')
 def edit_product(id):
     product = Product.query.get_or_404(id)
-    provider = product.provider
-    new_provider = request.form.get('provider_id', 0, type=int)
     form = ProductForm(request.form, obj=product)
-    form.provider_id.choices = [(provider.id, provider.social_reason)]
-
-    if new_provider:
-        provider = Provider.query.get(new_provider)
-        form.provider_id.choices = [(provider.id, provider.social_reason)]
-        form.provider_id.data = provider.id
-        form.provider_id.errors = []
+    provider = request.form.get('provider_id', 0, type=int) or \
+        product.provider_id
+    form.fill_provider(provider)
 
     if request.method == 'POST' and form.validate():
         form.populate_obj(product)

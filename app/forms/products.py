@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import (DateField, IntegerField, SelectField, StringField,
                      SubmitField, FloatField, validators)
 from wtforms.widgets.html5 import NumberInput
+from ..models.providers import Provider
 
 
 class ProductForm(FlaskForm):
@@ -23,3 +24,10 @@ class ProductForm(FlaskForm):
     manufactured = DateField(u'Fabricação', format='%d/%m/%Y')
     validity = DateField(u'Validade', format='%d/%m/%Y')
     submit_product = SubmitField(u'Salvar alterações')
+
+    def fill_provider(self, id):
+        provider = Provider.query.get(id)
+        if provider:
+            self.provider_id.choices = [(provider.id, provider.social_reason)]
+            self.provider_id.data = provider.id
+            self.provider_id.errors = []

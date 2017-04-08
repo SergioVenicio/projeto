@@ -7,7 +7,7 @@ class Product(db.Model):
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(100), nullable=False)
-    value = db.Column(db.Float, nullable=False)
+    value = db.Column(db.Float(asdecimal=True), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     unit = db.Column(db.String(2))
     manufactured = db.Column(db.DateTime)

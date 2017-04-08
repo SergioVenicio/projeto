@@ -5,7 +5,7 @@ from flask import (current_app, jsonify, request,
 from flask_login import login_required
 from . import controller
 from .. import db
-from ..models import Provider, City
+from ..models import Provider
 from ..forms.providers import ProviderForm
 from ..decorators.permission import permission_required
 
@@ -40,12 +40,7 @@ def providers():
 def add_provider():
     form = ProviderForm()
     city = request.form.get('city_id', 0, type=int)
-
-    if city:
-        city = City.query.get(city)
-        form.city_id.choices = [(city.id, city.description)]
-        form.city_id.data = city.id
-        form.city_id.errors = []
+    form.fill_city(city)
 
     if request.method == 'POST' and form.validate_on_submit():
         provider = Provider()
@@ -62,17 +57,15 @@ def add_provider():
 @permission_required('admin')
 def edit_provider(id):
     provider = Provider.query.get_or_404(id)
-    city = provider.city
-    new_city = request.form.get('city_id', 0, type=int)
+    city = request.form.get('city_id', 0, type=int)
     form = ProviderForm(request.form, obj=provider)
-    form.city_id.choices = [(
-        city.id, '{} - {}'.format(city.description, city.state.acronym))]
 
-    if new_city:
-        city = City.query.get(new_city)
-        form.city_id.choices = [(city.id, city.description)]
-        form.city_id.data = city.id
-        form.city_id.errors = []
+    if city:
+        form.fill_city(city)
+    else:
+        city = provider.city
+        form.city_id.choices = [(
+            city.id, '{} - {}'.format(city.description, city.state.acronym))]
 
     if request.method == 'POST' and form.validate():
         form.populate_obj(provider)
