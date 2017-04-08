@@ -32,5 +32,3 @@ class ProviderForm(FlaskForm):
             self.city_id.choices = [(city.id, city.description)]
             self.city_id.data = city.id
             self.city_id.errors = []
-        else:
-            return False
