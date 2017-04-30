@@ -2,14 +2,15 @@
 
 from flask import current_app, request, render_template, redirect, url_for
 from flask_login import login_required
-from . import controller
+
+from . import admin
+from .forms import ProductForm
 from .. import db
 from ..models import Product
-from ..forms.products import ProductForm
 from ..decorators.permission import permission_required
 
 
-@controller.route('/produtos/')
+@admin.route('/produtos/')
 @login_required
 @permission_required('admin')
 def products():
@@ -26,7 +27,7 @@ def products():
                            pagination=pagination)
 
 
-@controller.route('/produtos/adicionar/', methods=['GET', 'POST'])
+@admin.route('/produtos/adicionar/', methods=['GET', 'POST'])
 @login_required
 @permission_required('admin')
 def add_product():
@@ -39,12 +40,12 @@ def add_product():
         form.populate_obj(product)
         db.session.add(product)
         db.session.commit()
-        return redirect(url_for('controller.products'))
+        return redirect(url_for('admin.products'))
     return render_template('product/view.html', form=form,
                            label='Adicionar Produto', color='success')
 
 
-@controller.route('/produtos/editar/<int:id>', methods=['GET', 'POST'])
+@admin.route('/produtos/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 @permission_required('admin')
 def edit_product(id):
@@ -58,12 +59,12 @@ def edit_product(id):
         form.populate_obj(product)
         db.session.add(product)
         db.session.commit()
-        return redirect(url_for('controller.products'))
+        return redirect(url_for('admin.products'))
     return render_template('product/view.html', form=form,
                            label='Editar Produto', color='warning')
 
 
-@controller.route('/produtos/excluir/<int:id>', methods=['DELETE'])
+@admin.route('/produtos/excluir/<int:id>', methods=['DELETE'])
 @login_required
 @permission_required('admin')
 def delete_product(id):

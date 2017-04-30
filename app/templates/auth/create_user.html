@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Criar Conta{% endblock %}
 {% block head %}
 <style>
   body {
@@ -10,7 +10,7 @@
 {% endblock %}
 {% block body %}
 <div class="container-fluid">
-  <form class="form-signin" method="POST" action="/login">
+  <form class="form-signin" method="POST" action="{{ url_for('catalog.create_account') }}">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h2 class="text-center">
@@ -22,23 +22,16 @@
       </div>
       <div class="panel-body">
         {{ form.csrf_token }}
+        {{ form.name.label(class="sr-only") }}
+        {{ form.name(placeholder=form.name.label.text, class="form-control", autofocus=True, required=True) }}
         {{ form.email.label(class="sr-only") }}
-        {{ form.email(placeholder=form.email.label.text, class="form-control", autofocus=True, required=True) }}
+        {{ form.email(placeholder=form.email.label.text, class="form-control", required=True) }}
         {{ form.password.label(class="sr-only") }}
         {{ form.password(placeholder=form.password.label.text, class="form-control", required=True) }}
-        <div class="checkbox">
-          <label>
-            {{ form.remember_me }} {{ form.remember_me.label.text }}
-          </label>
-        </div>
       </div>
       <div class="panel-footer">
-        {{form.submit_login(class="btn btn-lg btn-primary btn-block")}}
+        {{form.submit_account(class="btn btn-lg btn-primary btn-block")}}
       </div>
-      <div class="form-group text-center">
-        <a href="{{ url_for('catalog.create_account') }}">Criar Conta</a>
-      </div>
-      <div class="clearfix"></div>
     </div>
   </form>
 </div>

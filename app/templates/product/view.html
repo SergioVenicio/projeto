@@ -38,7 +38,7 @@
         <button id="{{ form.submit_product.id }}" class="btn btn-{{ color }}" type="submit" name="{{ form.submit_product.name }}">
           <i class="fa fa-save"></i> {{ form.submit_product.label.text }}
         </button>
-        <a href="{{ url_for('controller.products') }}" class="btn btn-default" name="back" type="button"><i class="fa fa-ban"></i> Cancelar</a>
+        <a href="{{ url_for('admin.products') }}" class="btn btn-default" name="back" type="button"><i class="fa fa-ban"></i> Cancelar</a>
       </div>
     </div>
   </form>

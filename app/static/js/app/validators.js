@@ -183,35 +183,9 @@ validators = {
     app.utils.enter_prevent();
     $(form).validate({
       rules: {
-        login: {
-          minlength: 2,
-          maxlength: 255,
-          alphanumeric: true,
-          required: true
-        },
         name: {
           minlength: 2,
           maxlength: 255,
-          required: true
-        },
-        rg: {
-          minlength: 4,
-          maxlength: 15,
-          required: true,
-          alphanumeric: true
-        },
-        cpf: {
-          minlength: 13,
-          maxlength: 14,
-          required: true,
-          cpf: true
-        },
-        location_id: {
-          znumeric: true
-        },
-        telephone: {
-          minlength: 14,
-          maxlength: 15,
           required: true
         },
         email: {
@@ -219,51 +193,19 @@ validators = {
         },
         user_type_id: {
           znumeric: true
-        },
-        password: {
-          minlength: 6,
-          maxlength: 255,
-          required: true
         }
       },
       messages: {
-        login: {
-          minlength: 'O login deve possuir no mínimo {0} caracteres.',
-          maxlength: 'O login deve possuir no máximo {0} caracteres.',
-          required: 'Digite o login.'
-        },
         name: {
           minlength: 'O nome deve possuir no mínimo {0} caracteres.',
           maxlength: 'O nome deve possuir no máximo {0} caracteres.',
           required: 'Digite o nome.'
-        },
-        rg: {
-          minlength: 'O RG deve possuir no mínimo {0} caracteres.',
-          maxlength: 'O RG deve possuir no máximo {0} caracteres.',
-          required: 'Digite o RG.'
-        },
-        cpf: {
-          minlength: 'O CPF deve possuir no mínimo {0} caracteres.',
-          required: 'Digite o CPF.'
-        },
-        location_id: {
-          znumeric: 'Selecione uma localização.'
-        },
-        telephone: {
-          minlength: 'O telefone deve possuir no mínimo {0} caracteres.',
-          maxlength: 'O telefone deve possuir no máximo {0} caracteres.',
-          required: 'Digite o telefone.'
         },
         email: {
           email: 'Informe um email válido.'
         },
         user_type_id: {
           znumeric: 'Selecione um tipo de usuário.'
-        },
-        password: {
-          minlength: 'A senha deve possuir no mínimo {0} caracteres.',
-          maxlength: 'A senha deve possuir no máximo {0} caracteres.',
-          required: 'Digite a senha.'
         }
       }
     });

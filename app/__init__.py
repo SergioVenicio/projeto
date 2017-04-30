@@ -6,7 +6,8 @@ from flask_migrate import MigrateCommand
 from getpass import getpass
 from .extensions import db, login_manager, manager, migrate
 from .models import (User, UserType, State, City, Provider, Product)
-from .controllers import controller
+from .admin import admin
+from .catalog import catalog
 from .utils.helpers import MakeShellContext, HandleError
 
 
@@ -22,12 +23,13 @@ def create_app(config=None):
 
 
 def configure_blueprints(app):
-    app.register_blueprint(controller)
+    app.register_blueprint(admin)
+    app.register_blueprint(catalog)
 
 
 def configure_extensions(app):
     login_manager.session_protection = 'strong'
-    login_manager.login_view = 'controller.login'
+    login_manager.login_view = 'catalog.login'
     login_manager.login_message = u'Autentique-se para acessar esta página'
     db.init_app(app)
     login_manager.init_app(app)

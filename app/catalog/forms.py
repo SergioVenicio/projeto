@@ -12,3 +12,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Digite sua senha', validators=[Required()])
     remember_me = BooleanField('Mantenha-me conectado')
     submit_login = SubmitField('Login')
+
+
+class AccountForm(FlaskForm):
+    name = StringField('Digite seu nome', validators=[Required()])
+    email = StringField('Digite seu e-mail', validators=[Required(), Email()])
+    password = PasswordField('Digite sua senha', validators=[Required()])
+    submit_account = SubmitField('Cadastrar')
