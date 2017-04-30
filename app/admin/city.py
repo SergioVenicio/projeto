@@ -3,11 +3,12 @@
 
 from flask import abort, current_app, jsonify, request
 from flask_login import login_required
-from . import controller
+
+from . import admin
 from ..models import City
 
 
-@controller.route('/cidades/')
+@admin.route('/cidades/')
 @login_required
 def cities():
     if not request.is_xhr:
