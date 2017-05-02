@@ -7,7 +7,6 @@ from flask import current_app, url_for
 
 
 def upload_image(folder, file, name):
-    print(name)
     extension = imghdr.what('', file.read())
     file.seek(0)
     config = current_app.config
@@ -25,12 +24,18 @@ def upload_image(folder, file, name):
         return None
 
 
-def remove_image(path):
+def remove_image(image):
     folder = current_app.config['UPLOAD_FOLDER']
-    path = path.replace(os.path.join(os.sep, 'static', 'uploads', ''), '')
-    path = os.path.join(folder, path)
-    if os.path.isfile(path):
-        try:
-            os.remove(path)
-        except:
-            pass
+    image = image.replace(os.path.join(os.sep, 'static', 'uploads', ''), '')
+    image = os.path.join(folder, image)
+    path_day = os.path.dirname(image)
+    path_month = os.path.abspath(os.path.join(path_day, os.pardir))
+    try:
+        if os.path.isfile(image):
+            os.remove(image)
+        if not os.listdir(path_day):
+            os.rmdir(path_day)
+        if not os.listdir(path_month):
+            os.rmdir(path_month)
+    except:
+        pass

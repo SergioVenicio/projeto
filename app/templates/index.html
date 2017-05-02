@@ -8,9 +8,9 @@
       <div class="col-lg-3 col-md-3 col-sm-6">
         <div class="panel panel-default">
           {% if product.image %}
-            <img class="img-rounded img-responsive" src="{{ product.image }}" alt="{{ product.description }}">
+            <img class="img-rounded img-responsive img-preview pull-center" src="{{ product.image }}" alt="{{ product.description }}">
           {% else %}
-            <img class="img-rounded img-responsive" src="{{ url_for('static', filename='img/no-img.png') }}" alt="{{ product.description }}">
+            <img class="img-rounded img-responsive pull-center" src="{{ url_for('static', filename='img/no-img.png') }}" alt="{{ product.description }}">
           {% endif %}
 
           <div class="panel-body">

@@ -205,8 +205,8 @@ var app = {
       });
 
       $(config.remove_button).on('click', function() {
-        console.log(':()');
         $(config.upload_button).val('');
+        $(config.file_path).val('');
         setPreview(config.fallback_image);
       });
     },

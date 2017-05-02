@@ -62,10 +62,14 @@ def edit_product(id):
     form.fill_provider(provider)
 
     if request.method == 'POST' and form.validate():
+        img_path = product.image
         form.populate_obj(product)
         if form.image_file.data:
             product.image = upload_image('products', form.image_file.data,
                                          product.id)
+        elif not form.image_file.data and not form.image.data:
+            product.image = None
+            remove_image(img_path)
         db.session.add(product)
         db.session.commit()
         return redirect(url_for('admin.products'))
