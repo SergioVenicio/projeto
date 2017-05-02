@@ -7,7 +7,7 @@ from flask_login import login_required
 from . import admin
 from .forms import ProviderForm
 from .. import db
-from ..decorators.permission import permission_required
+from ..decorators import permission_required
 from ..models import Provider
 
 
@@ -31,7 +31,7 @@ def providers():
                 'id': p.id, 'social_reason': p.social_reason
             } for p in providers]
         })
-    return render_template('provider/index.html', providers=providers,
+    return render_template('admin/provider/index.html', providers=providers,
                            pagination=pagination)
 
 
@@ -49,7 +49,7 @@ def add_provider():
         db.session.add(provider)
         db.session.commit()
         return redirect(url_for('admin.providers'))
-    return render_template('provider/view.html', form=form,
+    return render_template('admin/provider/view.html', form=form,
                            label='Adicionar Fornecedor', color='success')
 
 
@@ -73,7 +73,7 @@ def edit_provider(id):
         db.session.add(provider)
         db.session.commit()
         return redirect(url_for('admin.providers'))
-    return render_template('provider/view.html', form=form,
+    return render_template('admin/provider/view.html', form=form,
                            label='Editar Fornecedor', color='warning')
 
 

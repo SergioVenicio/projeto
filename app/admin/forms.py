@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
 
 from flask_wtf import FlaskForm
-from wtforms import (DateField, IntegerField, PasswordField, SelectField,
-                     StringField, SubmitField, FloatField, validators)
+from flask_wtf.file import FileField
+from wtforms import (
+    DateField, IntegerField, PasswordField, SelectField, StringField,
+    SubmitField, FloatField, validators, HiddenField
+)
 from wtforms.widgets.html5 import NumberInput
 from wtforms.fields.html5 import EmailField
 
-from ..models.providers import Provider
-from ..models.cities import City
-from ..models.user_types import UserType
+from ..models import Provider, City, UserType
 
 
 class ProductForm(FlaskForm):
     id = IntegerField()
     provider_id = SelectField(u'Fornecedor', choices=(), validators=[
         validators.Required()])
-    description = StringField('Descrição', [
+    image = HiddenField('Imagem', validators=[validators.optional()])
+    image_file = FileField(validators=[validators.optional()])
+    description = StringField(u'Descrição', [
         validators.Required(),
         validators.Length(max=100)])
     value = FloatField('Valor', validators=[

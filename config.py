@@ -18,7 +18,9 @@ def generate_key(length):
 
 
 class Config:
+    UPLOAD_FOLDER = os.path.join(basedir, 'app', 'static', 'uploads')
     SECRET_KEY = os.environ.get('SECRET_KEY') or generate_key(64)
+    ALLOWED_EXTENSIONS = ('jpeg', 'png')
     PER_PAGE = 2
     # SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 

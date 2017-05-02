@@ -183,6 +183,34 @@ var app = {
       }
     },
 
+    upload_image: function(config) {
+      if (!window.File && !window.FileList && !window.FileReader) {
+        alert('O navegador não suporta a API de Arquivos!');
+        return;
+      }
+
+      var preview = $(config.file_path).val(),
+        setPreview = function(path) {
+          $(config.preview).attr('src', path);
+        };
+
+      if (preview) setPreview(preview);
+
+      $(config.upload_button).on('change', function(e) {
+        var reader = new FileReader();
+        reader.onload = (function(e) {
+          setPreview(e.target.result);
+        });
+        reader.readAsDataURL(e.target.files[0]);
+      });
+
+      $(config.remove_button).on('click', function() {
+        console.log(':()');
+        $(config.upload_button).val('');
+        setPreview(config.fallback_image);
+      });
+    },
+
     index: function(service, title, message) {
       $('#search').on('keyup', function() {
         var self = $(this),

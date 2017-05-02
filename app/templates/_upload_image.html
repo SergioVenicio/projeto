@@ -1,0 +1,20 @@
+{% macro upload_image(input_field=None, file_path=None) -%}
+<div class="thumbnail">
+{% if file_path.data %}
+  <img id="preview" class="img-rounded img-responsive" src="{{ file_path.data }}" alt="" width="500">
+{% else %}
+  <img id="preview" class="img-rounded img-responsive" src="{{ url_for('static', filename='img/no-img.png') }}" alt="" width="500">
+{% endif %}
+  <div class="caption text-center">
+    <div class="btn-group" role="group">
+      <label class="btn btn-primary" for="{{ input_field.name }}" title="Carregar Imagem">
+        <i class="fa fa-cloud-upload"></i>
+        {{ input_field(class_='hide') }}
+        {{ file_path }}
+      </label>
+      <a id="image_remove" href="#" class="btn btn-danger" title="Remover Imagem">
+        <i class="fa fa-trash"></i></a>
+    </div>
+  </div>
+</div>
+{% endmacro %}

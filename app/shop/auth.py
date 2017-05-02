@@ -4,35 +4,34 @@ from flask import flash, redirect, request, render_template, url_for
 from flask_login import (
     current_user, login_required, login_user, logout_user)
 
-from . import catalog
+from . import shop
 from .forms import LoginForm, AccountForm
 from .. import db
-from ..models.users import User
+from ..models import User
 
 
-@catalog.route('/login', methods=('GET', 'POST',))
+@shop.route('/login', methods=('GET', 'POST',))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('catalog.index'))
+        return redirect(url_for('shop.index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is not None and user.check_password(form.password.data):
             login_user(user, form.remember_me.data)
-            return redirect(request.args.get('next') or
-                            url_for('catalog.index'))
+            return redirect(request.args.get('next') or url_for('shop.index'))
         flash(u'Usuário ou senha inválidos!')
-    return render_template('auth/login.html', form=form)
+    return render_template('shop/auth/login.html', form=form)
 
 
-@catalog.route('/logout')
+@shop.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('catalog.login'))
+    return redirect(url_for('shop.login'))
 
 
-@catalog.route('/conta/criar', methods=('GET', 'POST',))
+@shop.route('/conta/criar', methods=('GET', 'POST',))
 def create_account():
     form = AccountForm()
     if form.validate_on_submit():
@@ -42,5 +41,5 @@ def create_account():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return redirect(url_for('catalog.index'))
-    return render_template('auth/create_user.html', form=form)
+        return redirect(url_for('shop.index'))
+    return render_template('shop/auth/create_user.html', form=form)

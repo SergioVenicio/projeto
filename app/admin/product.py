@@ -7,7 +7,8 @@ from . import admin
 from .forms import ProductForm
 from .. import db
 from ..models import Product
-from ..decorators.permission import permission_required
+from ..decorators import permission_required
+from ..utils.uploader import upload_image, remove_image
 
 
 @admin.route('/produtos/')
@@ -23,7 +24,7 @@ def products():
         Product.description.asc()).paginate(
             page, per_page=current_app.config['PER_PAGE'], error_out=False)
     products = pagination.items
-    return render_template('product/index.html', products=products,
+    return render_template('admin/product/index.html', products=products,
                            pagination=pagination)
 
 
@@ -35,13 +36,18 @@ def add_product():
     provider = request.form.get('provider_id', 0, type=int)
     form.fill_provider(provider)
 
-    if request.method == 'POST' and form.validate_on_submit():
+    if form.validate_on_submit():
         product = Product()
         form.populate_obj(product)
         db.session.add(product)
         db.session.commit()
+        if form.image_file.data:
+            product.image = upload_image('products', form.image_file.data,
+                                         product.id)
+            db.session.add(product)
+            db.session.commit()
         return redirect(url_for('admin.products'))
-    return render_template('product/view.html', form=form,
+    return render_template('admin/product/view.html', form=form,
                            label='Adicionar Produto', color='success')
 
 
@@ -50,17 +56,20 @@ def add_product():
 @permission_required('admin')
 def edit_product(id):
     product = Product.query.get_or_404(id)
-    form = ProductForm(request.form, obj=product)
+    form = ProductForm(obj=product)
     provider = request.form.get('provider_id', 0, type=int) or \
         product.provider_id
     form.fill_provider(provider)
 
     if request.method == 'POST' and form.validate():
         form.populate_obj(product)
+        if form.image_file.data:
+            product.image = upload_image('products', form.image_file.data,
+                                         product.id)
         db.session.add(product)
         db.session.commit()
         return redirect(url_for('admin.products'))
-    return render_template('product/view.html', form=form,
+    return render_template('admin/product/view.html', form=form,
                            label='Editar Produto', color='warning')
 
 
@@ -69,6 +78,7 @@ def edit_product(id):
 @permission_required('admin')
 def delete_product(id):
     product = Product.query.get_or_404(id)
+    remove_image(product.image)
     db.session.delete(product)
     db.session.commit()
     return '', 204

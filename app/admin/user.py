@@ -7,7 +7,7 @@ from . import admin
 from .forms import UserForm
 from .. import db
 from ..models import User
-from ..decorators.permission import permission_required
+from ..decorators import permission_required
 
 
 @admin.route('/usuarios/')
@@ -23,7 +23,7 @@ def users():
         User.name.asc()).paginate(
             page, per_page=current_app.config['PER_PAGE'], error_out=False)
     users = pagination.items
-    return render_template('user/index.html', users=users,
+    return render_template('admin/user/index.html', users=users,
                            pagination=pagination)
 
 
@@ -39,7 +39,7 @@ def add_user():
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('admin.users'))
-    return render_template('user/view.html', form=form,
+    return render_template('admin/user/view.html', form=form,
                            label='Adicionar usuario', color='success')
 
 
@@ -52,12 +52,12 @@ def edit_user(id):
 
     if request.method == 'POST' and form.validate():
         form.populate_obj(user)
-        if form.password.data == "":
-           user.password_hash = User.query.get(id).password_hash
+        if form.password.data == '':
+            user.password_hash = User.query.get(id).password_hash
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('admin.users'))
-    return render_template('user/view.html', form=form,
+    return render_template('admin/user/view.html', form=form,
                            label='Editar usuario', color='warning')
 
 
