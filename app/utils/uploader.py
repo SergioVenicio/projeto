@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import os
-import imghdr
+import magic
 from time import strftime
 from flask import current_app, url_for
 
 
 def upload_image(folder, file, name):
-    extension = imghdr.what('', file.read())
+    extension = magic.from_buffer(file.read(1024), mime=True).split('/')[1]
     file.seek(0)
     config = current_app.config
     if extension in config['ALLOWED_EXTENSIONS']:

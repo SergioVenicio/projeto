@@ -39,10 +39,11 @@
 
             <thead>
               <tr>
+                <th class="col-md-1">Imagem</th>
                 <th class="col-md-4">Descrição</th>
                 <th class="col-md-1">Fabricação</th>
                 <th class="col-md-1">Validade</th>
-                <th class="col-md-2">Unidade de Medida</th>
+                <th class="col-md-1">Unidade de Medida</th>
                 <th class="col-md-1">Preço</th>
                 <th class="col-md-1">Quantidade</th>
                 <th class="col-md-2">Ações</th>
@@ -52,6 +53,11 @@
             <tbody>
               {% for p in products %}
               <tr>
+                {% if p.image %}
+                <td><img class="img-responsive img-rounded" src="{{ p.image }}" width="50" height="50"/></td>
+                {% else %}
+                <td><img class="img-responsive img-rounded" src="{{ url_for('static', filename='img/no-img-sm.png') }}" width="50" height="50"/></td>
+                {% endif %}
                 <td>{{ p.description }}</td>
                 <td>{{ p.manufactured.strftime('%d/%m/%Y') }}</td>
                 <td>{{ p.validity.strftime('%d/%m/%Y') }}</td>
