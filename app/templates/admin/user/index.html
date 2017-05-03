@@ -39,10 +39,10 @@
 
             <thead>
               <tr>
-                <th class="col-md-3">Nome</th>
-                <th class="col-md-3">E-mail</th>
-                <th class="col-md-3">Tipo de Usuário</th>
-                <th>Ações</th>
+                <th class="col-md-4">Nome</th>
+                <th class="col-md-4">E-mail</th>
+                <th classs="col-md-2">Tipo de Usuário</th>
+                <th class="col-md-2">Ações</th>
               </tr>
             </thead>
 
@@ -53,11 +53,11 @@
                 <td>{{ u.email }}</td>
                 <td>{{ u.user_type.description }}</td>
                 <td>
-                  <a class="btn btn-warning" href="{{ url_for('admin.edit_user', id=u.id) }}">
-                    <i class="fa fa-pencil"></i> Alterar
+                  <a class="btn btn-warning" href="{{ url_for('admin.edit_user', id=u.id) }}" title="Alterar">
+                    <i class="fa fa-pencil"></i>
                   </a>
-                  <a class="btn btn-danger delete" data-action="{{ url_for('admin.delete_user', id=u.id) }}">
-                    <i class="fa fa-trash"></i> Excluir
+                  <a class="btn btn-danger delete" data-action="{{ url_for('admin.delete_user', id=u.id) }}" title="Excluir">
+                    <i class="fa fa-trash"></i>
                   </a>
                 </td>
               </tr>

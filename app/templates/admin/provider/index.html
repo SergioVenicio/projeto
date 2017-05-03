@@ -39,9 +39,9 @@
 
             <thead>
               <tr>
-                <th>CNPJ</th>
-                <th class="col-md-6">Nome</th>
-                <th>Ações</th>
+                <th class="col-md-1">CNPJ</th>
+                <th>Nome</th>
+                <th class="col-md-2">Ações</th>
               </tr>
             </thead>
 
@@ -51,11 +51,11 @@
                 <td>{{ p.cnpj }}</td>
                 <td>{{ p.social_reason }}</td>
                 <td>
-                  <a class="btn btn-warning" href="{{ url_for('admin.edit_provider', id=p.id) }}">
-                    <i class="fa fa-pencil"></i> Alterar
+                  <a class="btn btn-warning" href="{{ url_for('admin.edit_provider', id=p.id) }}" title="Alterar">
+                    <i class="fa fa-pencil"></i>
                   </a>
-                  <a class="btn btn-danger delete" data-action="{{ url_for('admin.delete_provider', id=p.id) }}">
-                    <i class="fa fa-trash"></i> Excluir
+                  <a class="btn btn-danger delete" data-action="{{ url_for('admin.delete_provider', id=p.id) }}" title="Excluir">
+                    <i class="fa fa-trash"></i>
                   </a>
                 </td>
               </tr>

@@ -43,9 +43,9 @@
                 <th class="col-md-1">Fabricação</th>
                 <th class="col-md-1">Validade</th>
                 <th class="col-md-2">Unidade de Medida</th>
-                <th class="col-md-1">Valor</th>
+                <th class="col-md-1">Preço</th>
                 <th class="col-md-1">Quantidade</th>
-                <th>Ações</th>
+                <th class="col-md-2">Ações</th>
               </tr>
             </thead>
 
@@ -59,11 +59,11 @@
                 <td>{{ format_price(p.value) }}</td>
                 <td>{{ p.quantity }}</td>
                 <td>
-                  <a class="btn btn-warning" href="{{ url_for('admin.edit_product', id=p.id) }}">
-                    <i class="fa fa-pencil"></i> Alterar
+                  <a class="btn btn-warning" href="{{ url_for('admin.edit_product', id=p.id) }}" title="Alterar">
+                    <i class="fa fa-pencil"></i>
                   </a>
-                  <a class="btn btn-danger delete" data-action="{{ url_for('admin.delete_product', id=p.id) }}">
-                    <i class="fa fa-trash"></i> Excluir
+                  <a class="btn btn-danger delete" data-action="{{ url_for('admin.delete_product', id=p.id) }}" title="Excluir">
+                    <i class="fa fa-trash"></i>
                   </a>
                 </td>
               </tr>
