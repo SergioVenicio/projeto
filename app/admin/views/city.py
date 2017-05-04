@@ -4,8 +4,8 @@
 from flask import abort, current_app, jsonify, request
 from flask_login import login_required
 
-from . import admin
-from ..models import City
+from .. import admin
+from ...models import City
 
 
 @admin.route('/cidades/')

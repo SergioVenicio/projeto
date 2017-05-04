@@ -4,11 +4,11 @@ from flask import (current_app, jsonify, request,
                    render_template, redirect, url_for)
 from flask_login import login_required
 
-from . import admin
-from .forms import ProviderForm
-from .. import db
-from ..decorators import permission_required
-from ..models import Provider
+from .. import admin
+from ..forms import ProviderForm
+from ... import db
+from ...decorators import permission_required
+from ...models import Provider
 
 
 @admin.route('/fornecedores/')

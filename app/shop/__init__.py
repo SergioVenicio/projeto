@@ -4,5 +4,5 @@ from flask import Blueprint
 
 shop = Blueprint('shop', __name__)
 
-from .auth import * # noqa
-from .index import * # noqa
+from .views.auth import * # noqa
+from .views.index import * # noqa

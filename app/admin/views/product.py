@@ -3,12 +3,12 @@
 from flask import current_app, request, render_template, redirect, url_for
 from flask_login import login_required
 
-from . import admin
-from .forms import ProductForm
-from .. import db
-from ..models import Product
-from ..decorators import permission_required
-from ..utils.uploader import upload_image, remove_image
+from .. import admin
+from ..forms import ProductForm
+from ... import db
+from ...models import Product
+from ...decorators import permission_required
+from ...utils.uploader import upload_image, remove_image
 
 
 @admin.route('/produtos/')

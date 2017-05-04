@@ -3,11 +3,11 @@
 from flask import current_app, request, render_template, redirect, url_for
 from flask_login import login_required
 
-from . import admin
-from .forms import UserForm
-from .. import db
-from ..models import User
-from ..decorators import permission_required
+from .. import admin
+from ..forms import UserForm
+from ... import db
+from ...models import User
+from ...decorators import permission_required
 
 
 @admin.route('/usuarios/')

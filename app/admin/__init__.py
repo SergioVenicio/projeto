@@ -4,7 +4,7 @@ from flask import Blueprint
 
 admin = Blueprint('admin', __name__)
 
-from .city import * #noqa
-from .product import * #noqa
-from .provider import * #noqa
-from .user import * #noqa
+from .views.city import * #noqa
+from .views.product import * #noqa
+from .views.provider import * #noqa
+from .views.user import * #noqa

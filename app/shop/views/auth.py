@@ -4,10 +4,10 @@ from flask import flash, redirect, request, render_template, url_for
 from flask_login import (
     current_user, login_required, login_user, logout_user)
 
-from . import shop
-from .forms import LoginForm, AccountForm
-from .. import db
-from ..models import User
+from .. import shop
+from ..forms import LoginForm, AccountForm
+from ... import db
+from ...models import User
 
 
 @shop.route('/login', methods=('GET', 'POST',))
